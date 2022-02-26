@@ -73,6 +73,7 @@ In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Do
 
 - Specify a different group of machinges:
 ```
+---
 - name: Configure Elk VM with Docker
   hosts: elkservers
   become: true
