@@ -125,16 +125,16 @@ In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Do
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
 - Jump-Box-Provisioner
-![alt text]
+![alt text](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Images/Docker_PS_Output/JumpBox_Docker_PS_Output.png)
 
 - Web-1
-![alt text]
+![alt text](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Images/Docker_PS_Output/Web_1_Docker_PS_Output.png)
 
 - Web-2
-![alt text]
+![alt text](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Images/Docker_PS_Output/Web_2_Docker_PS_Output.png)
 
 - ELK-Server
-![alt text]
+![alt text](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Images/Docker_PS_Output/ELK_Server_Docker_PS_Output.png)
 
 # Target Machines & Beats
 
