@@ -124,7 +124,17 @@ In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Do
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+- Jump-Box-Provisioner
+![alt text]
+
+- Web-1
+![alt text]
+
+- Web-2
+![alt text]
+
+- ELK-Server
+![alt text]
 
 # Target Machines & Beats
 
