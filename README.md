@@ -28,11 +28,18 @@ The main purpose of this network is to expose a load-balanced and monitored inst
 Load balancing ensures that the application will be highly **functional and available**, in addition to restricting **traffic** to the network.
 
 - What aspect of security do load balancers protect?  
-- What is the advantage of a jump box?
+  - **Load balancers add resiliency by rerouting live traffic from one server to another if a server falls prey to a DDoS attack or otherwise becomes unavailable.**
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- What does Filebeat watch for?  
+- What is the advantage of a jump box?
+  - **A Jump Box Provisioner is also important as it prevents Azure VMs from being exposed via a public IP Address. This allows us to do monitoring and logging on a single box. We can also restrict the IP addresses able to communicate with the Jump Box.**
+
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the **network** and system **logs**.
+
+- What does Filebeat watch for?
+  - **Filebeat monitors the log files or locations that you specify, collects log events.**
+
 - What does Metricbeat record?  
+  - **Metricbeat takes the metrics and statistics that collects and ships them to the output you specify.**
 
 The configuration details of each machine may be found below.
 
@@ -47,28 +54,31 @@ The configuration details of each machine may be found below.
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the **Jump-Box-Provisioner** machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+- **Workstation Public IP Address using TCP Port 5601**
+
+Machines within the network can only be accessed by **Workstation and Jump-Box-Provisioner**.
+
+- Which machine did you allow to access your ELK VM? What was its IP address? 
+  - **Jump-Box-Provisioner: 10.0.0.6 on SSH Port 22**
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 | :- | :- | :- |
-| Jump Box | Yes | 20.102.71.52 (Worksation Public IP on SSH Port 22) |
+| Jump Box | Yes | 20.102.71.52 <Worksation Public IP Address on SSH Port 22> |
 | Web-1 | No | 10.0.0.6 on SSH Port 22 |
 | We-2 | No | 10.0.0.6 on SSH Port 22 |
-| ELK-Server | No | Workstation Public IP using TCP Port 5601 |
+| ELK-Server | No | <Workstation Public IP Address> using TCP Port 5601 |
 
 # Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+- What is the main advantage of automating configuration with Ansible?
+  - **This allows you to deploy to multiple servers using a single playbook**
 
-The playbook implements the following tasks:
-
+The playbook implements the following tasks:  
 In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc.
 
 - Specify a different group of machinges:
@@ -153,19 +163,36 @@ We have installed the following Beats on these machines:
   - [Metricbeat Status](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Images/Beats%20Installed/Metricbeat_Data_Successful.png)
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+
+- Filebeat will be used to collect log files from very specific files such as Apache, Microsft Azure tools and web servers, MySQL databases.
+- Metericbeat will be used to monitor VM stats, per CPU core stats, per filesystem stats, memory stats and network stats.
 
 # Using the Playbook
 
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the **yml** file to **ansible folder**.
+- Update the **config** file to include **remote users and ports**.
+- Run the playbook, and navigate to **Kibana <ELK_Server IP Address:5601>** to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+Answer the following questions to fill in the blanks:
 
+- Which file is the playbook?
+  - For Anisible make [Pentest Playbook](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Files/pentest-playbook.yml)
+  - For Filebeat make [Filebeat Playbook](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Files/filebeat-playbook.yml)
+  - For Metricbeat make [Metricbeat Playbook](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Files/metricbeat-playbook.yml)
+
+- Where do you copy it?
+  - /etc/ansible/
+
+- Which file do you update to make Ansible run the playbook on a specific machine?
+  - /etc/ansible/hosts file > IP Address of the VMs
+  
+- How do I specify which machine to install the ELK server on versus which to install Filebeat on?
+  -I specified in /etc/ansible/hosts file which is a webserver and which is an ELKserver.
+  
+![alt text](https://github.com/ChristopherLBlanchette/Project-1/blob/main/Images/Docker_PS_Output/ServerSpecification.png)
+  
+- Which URL do you navigate to in order to check that the ELK server is running?
+  - http://20.124.23.81:5601/app/kibana#/home
